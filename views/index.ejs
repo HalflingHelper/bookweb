@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/public/assets/styles.css" rel="stylesheet" type="text/css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="public/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="public/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/favicons/favicon-16x16.png">
+    <link rel="manifest" href="public/favicons/site.webmanifest">
+</head>
+
+<body>
+    <h1>Bookweb</h1>
+    <p>Choose some books to get some reading statistics</p>
+
+    <form>
+        <label for="title">Search Book Title:</label>
+        <input oninput="loadResults()" type="text" name="title" id="title">
+        <button type="submit">Add book</button>
+    </form>
+
+    <form>
+        <button type="submit">Generate Stats</button>
+    </form>
+</body>
+<script>
+    function loadResults() {
+        const data = document.getElementById("title").value;
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: data
+        })
+            .then(res => {
+                if (res.status !== 200) {
+                    {
+                        console.log("error")
+                    }
+                } else {
+                    res.json().then(data => {
+                        console.log(data)
+                    })
+                }
+            })
+
+        console.log(data)
+    }
+</script>
+
+</html>
