@@ -25,29 +25,45 @@
     <form>
         <button type="submit">Generate Stats</button>
     </form>
+
+    <div id="dropdown">
+        <ul id="resultList">
+
+        </ul>
+    </div>
 </body>
 <script>
-    function loadResults() {
+    const out = document.getElementById("resultList");
+
+    async function loadResults() {
         const data = document.getElementById("title").value;
 
-        fetch('/', {
+        const res = await fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: data
-        })
-            .then(res => {
-                if (res.status !== 200) {
-                    {
-                        console.log("error")
-                    }
-                } else {
-                    res.json().then(data => {
-                        console.log(data)
-                    })
-                }
-            })
+        });
 
-        console.log(data)
+        if (res.status !== 200) {
+            console.log("error");
+            return false;
+        }
+
+        const d = await res.json()
+
+        out.replaceChildren();
+
+        for (const book of d) {
+            let li = document.createElement('li');
+            let button = document.createElement('button')
+            button.innerText = "sdf";
+            button.onclick = () => console.log('hi mom')
+            li.innerText = book.title;
+            li.appendChild(button)
+            out.appendChild(li);
+        }
+
+        return true;
     }
 </script>
 

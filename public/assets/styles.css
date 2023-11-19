@@ -1,7 +1,22 @@
 html {
-    background-color: red;
+    background-color: lightcoral;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 h1 {
-    color: blue;
+    color: rgb(0, 0, 87);
+}
+
+button {
+    color: rgb(193, 192, 255);
+    border: 2px solid black;
+    border-radius: 100px;
+    padding: 4px;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    transition-duration: 0.2s;
+}
+
+button:hover {
+    background-color: darkblue;
 }
