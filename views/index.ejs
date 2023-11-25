@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Build Your Bookweb!</title>
     <link href="/public/assets/styles.css" rel="stylesheet" type="text/css" />
     <link rel="apple-touch-icon" sizes="180x180" href="public/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="public/favicons/favicon-32x32.png">
@@ -16,23 +16,33 @@
     <h1>Bookweb</h1>
     <p>Choose some books to get some reading statistics</p>
 
-    <form>
         <label for="title">Search Book Title:</label>
-        <input oninput="loadResults()" type="text" name="title" id="title">
-        <button type="submit">Add book</button>
-    </form>
+        <div id="searchWrapper">
+
+            <input oninput="loadResults()" type="text" name="title" id="title">
+            <div id="resultList">
+
+            </div>
+        </div>
+
+
 
     <form>
         <button type="submit">Generate Stats</button>
     </form>
 
-    <div id="dropdown">
-        <ul id="resultList">
 
-        </ul>
-    </div>
 </body>
-<script>
+
+<script type="application/javascript">
+    let lst = [];
+    function addToList(book) {
+        lst.push(book)
+        console.log(lst.length)
+    }
+</script>
+
+<script type="application/javascript">
     const out = document.getElementById("resultList");
 
     async function loadResults() {
@@ -54,13 +64,19 @@
         out.replaceChildren();
 
         for (const book of d) {
-            let li = document.createElement('li');
-            let button = document.createElement('button')
-            button.innerText = "sdf";
-            button.onclick = () => console.log('hi mom')
-            li.innerText = book.title;
-            li.appendChild(button)
-            out.appendChild(li);
+            let item = document.createElement('div');
+            item.className = "book";
+            let title = document.createElement('p');
+            title.innerText = book.title;
+
+            let btn = document.createElement('div');
+            btn.className = "btn"
+            btn.innerText = "Add";
+            btn.onclick = () => addToList(book);
+
+            item.appendChild(title);
+            item.appendChild(btn);
+            out.appendChild(item);
         }
 
         return true;

@@ -1,6 +1,6 @@
 html {
     background-color: lightcoral;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 h1 {
@@ -19,4 +19,74 @@ button {
 
 button:hover {
     background-color: darkblue;
+}
+
+#searchWrapper {
+    width: 90%;
+    max-width: 600px;
+}
+
+#title {
+    width: 100%;
+}
+
+/* Result container */
+#resultList {
+    width: 90%;
+    max-width: 600px;
+    position: absolute;
+    --radius: 10px;
+    --transition-speed: 0.3s;
+    margin-top: 2px;
+    background-color: #EEE;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+}
+
+.book {
+    display: flex;
+    overflow: hidden;
+    background-color: #EEE;
+    justify-content: space-between;
+    padding-left: 1em;
+    transition-duration: var(--transition-speed);
+}
+
+.book .btn {
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 1em;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    transition-duration: var(--transition-speed);
+}
+
+.book .btn:hover {
+    background-color: blue;
+}
+
+.book:hover {
+    background-color: #AAA;
+}
+
+/* Making the radii work for the list */
+.book:first-child .btn {
+    border-top-right-radius: var(--radius);
+}
+
+.book:first-child {
+    border-top-right-radius: var(--radius);
+    border-top-left-radius: var(--radius);
+}
+
+.book:last-child .btn {
+    border-bottom-right-radius: var(--radius);
+}
+
+.book:last-child {
+    border-bottom-right-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
 }
