@@ -66,14 +66,19 @@
         for (const book of d) {
             let item = document.createElement('div');
             item.className = "book";
+
             let title = document.createElement('p');
             title.innerText = book.title;
+
+            let img = document.createElement('img');
+            img.src = book.thumbnail;
 
             let btn = document.createElement('div');
             btn.className = "btn"
             btn.innerText = "Add";
             btn.onclick = () => addToList(book);
 
+            item.appendChild(img)
             item.appendChild(title);
             item.appendChild(btn);
             out.appendChild(item);

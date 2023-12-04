@@ -64,6 +64,10 @@ button:hover {
     transition-duration: var(--transition-speed);
 }
 
+.book img {
+    height: 64px;
+}
+
 .book .btn:hover {
     background-color: blue;
 }
