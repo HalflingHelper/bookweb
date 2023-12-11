@@ -9,7 +9,7 @@ app.use(express.text({limit:'1mb'}))
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
 app.use('/public', express.static('public'));
-
+ 
 app.get('/', (req, res) => {
     res.render('index');
 })
@@ -23,6 +23,17 @@ app.post('/', (req, res) => {
         }
     });
 });
+
+app.get('/display', (req, res) => {
+    console.log(req.body);
+    res.render('web');
+})
+
+app.post('/display', (req, res) => {
+    let books = JSON.parse(req.body.books)
+    console.log(books[0])
+    res.render('web', {books: books})
+})
 
 app.use(function(req, res, next){
     // res.status(404).send("Sorry, page not found");

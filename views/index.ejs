@@ -1,91 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Build Your Bookweb!</title>
     <link href="/public/assets/styles.css" rel="stylesheet" type="text/css" />
-    <link rel="apple-touch-icon" sizes="180x180" href="public/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="public/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="public/favicons/favicon-16x16.png">
-    <link rel="manifest" href="public/favicons/site.webmanifest">
-</head>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="public/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="public/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="public/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="public/favicons/site.webmanifest" />
+  </head>
 
-<body>
+  <body>
     <h1>Bookweb</h1>
-    <p>Choose some books to get some reading statistics</p>
+    <div class="content">
+      <div>
+        <p>Choose some books to get some reading statistics</p>
 
         <label for="title">Search Book Title:</label>
         <div id="searchWrapper">
-
-            <input oninput="loadResults()" type="text" name="title" id="title">
-            <div id="resultList">
-
-            </div>
+          <div id="inputWrapper">
+            <input
+              oninput="loadResults()"
+              type="text"
+              name="title"
+              id="title"
+            />
+          </div>
+          <div id="resultList"></div>
         </div>
+        <form action="/display" method="post">
+            <input type="hidden" name="books" id="books"/>
+          <button type="submit">Generate Stats</button>
+        </form>
+      </div>
+      <div>
+        <p>Chosen books:</p>
+        <div id="chosen"></div>
+      </div>
+    </div>
+  </body>
 
-
-
-    <form>
-        <button type="submit">Generate Stats</button>
-    </form>
-
-
-</body>
-
-<script type="application/javascript">
+  <script type="application/javascript">
     let lst = [];
-    function addToList(book) {
-        lst.push(book)
-        console.log(lst.length)
-    }
-</script>
+    let chosen = document.getElementById("chosen");
+    const books_input = document.getElementById("books");
 
-<script type="application/javascript">
+    function addToList(book) {
+      // Make sure book isn't already on list
+      let found = lst.find((e) => e.title == book.title);
+    
+      if (found) {
+        console.log("Already added")
+        return;
+      }
+
+      lst.push(book);
+      books_input.value = JSON.stringify(lst);
+      console.log(lst.length);
+
+      let div = document.createElement("div");
+      div.innerText = book.title;
+      chosen.appendChild(div);
+    }
+  </script>
+
+  <script type="application/javascript">
     const out = document.getElementById("resultList");
 
+    out.addEventListener("mouseleave", () => {
+      out.style.display = "none";
+    });
+
     async function loadResults() {
-        const data = document.getElementById("title").value;
+      out.style.display = "flex";
+      const data = document.getElementById("title").value;
 
-        const res = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: data
-        });
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: data,
+      });
 
-        if (res.status !== 200) {
-            console.log("error");
-            return false;
-        }
+      if (res.status !== 200) {
+        console.log("error");
+        return false;
+      }
 
-        const d = await res.json()
+      const d = await res.json();
 
-        out.replaceChildren();
+      out.replaceChildren();
 
-        for (const book of d) {
-            let item = document.createElement('div');
-            item.className = "book";
+      for (const book of d) {
+        let item = document.createElement("div");
+        item.className = "book";
 
-            let title = document.createElement('p');
-            title.innerText = book.title;
+        let title = document.createElement("p");
+        title.innerText = book.title;
 
-            let img = document.createElement('img');
-            img.src = book.thumbnail;
+        let img = document.createElement("img");
+        img.src = book.thumbnail;
 
-            let btn = document.createElement('div');
-            btn.className = "btn"
-            btn.innerText = "Add";
-            btn.onclick = () => addToList(book);
+        let btn = document.createElement("div");
+        btn.className = "btn";
+        btn.innerText = "Add";
+        btn.onclick = () => addToList(book);
 
-            item.appendChild(img)
-            item.appendChild(title);
-            item.appendChild(btn);
-            out.appendChild(item);
-        }
+        item.appendChild(img);
+        item.appendChild(title);
+        item.appendChild(btn);
+        out.appendChild(item);
+      }
 
-        return true;
+      return true;
     }
-</script>
-
+  </script>
 </html>

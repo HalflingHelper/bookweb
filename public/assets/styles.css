@@ -1,96 +1,113 @@
 html {
-    background-color: lightcoral;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  background-color: lightcoral;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 h1 {
-    color: rgb(0, 0, 87);
+  color: rgb(0, 0, 87);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 40rem 40rem;
 }
 
 button {
-    color: rgb(193, 192, 255);
-    border: 2px solid black;
-    border-radius: 100px;
-    padding: 4px;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    transition-duration: 0.2s;
+  color: rgb(193, 192, 255);
+  border: 2px solid black;
+  border-radius: 100px;
+  padding: 4px;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  transition-duration: 0.2s;
 }
 
 button:hover {
-    background-color: darkblue;
+  background-color: rgb(0, 153, 177);
 }
 
 #searchWrapper {
-    width: 90%;
-    max-width: 600px;
+  width: 90%;
+  max-width: 600px;
+}
+
+#inputWrapper {
+  background-color: red;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 #title {
-    width: 100%;
+  width: 100%;
+  border: none;
+}
+
+#title:focus {
+  outline: none;
 }
 
 /* Result container */
 #resultList {
-    width: 90%;
-    max-width: 600px;
-    position: absolute;
-    --radius: 10px;
-    --transition-speed: 0.3s;
-    margin-top: 2px;
-    background-color: #EEE;
-    border-radius: var(--radius);
-    display: flex;
-    flex-direction: column;
+  width: 90%;
+  max-width: 600px;
+  position: absolute;
+  --radius: 10px;
+  --transition-speed: 0.3s;
+  margin-top: 2px;
+  background-color: #eee;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
 }
 
 .book {
-    display: flex;
-    overflow: hidden;
-    background-color: #EEE;
-    justify-content: space-between;
-    padding-left: 1em;
-    transition-duration: var(--transition-speed);
+  display: flex;
+  overflow: hidden;
+  background-color: #eee;
+  justify-content: space-between;
+  padding-left: 1em;
+  transition-duration: var(--transition-speed);
 }
 
 .book .btn {
-    border: none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 1em;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-    transition-duration: var(--transition-speed);
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 1em;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  transition-duration: var(--transition-speed);
 }
 
 .book img {
-    height: 64px;
+  height: 64px;
 }
 
 .book .btn:hover {
-    background-color: blue;
+  background-color: rgb(0, 153, 177);
 }
 
 .book:hover {
-    background-color: #AAA;
+  background-color: #aaa;
 }
 
 /* Making the radii work for the list */
 .book:first-child .btn {
-    border-top-right-radius: var(--radius);
+  border-top-right-radius: var(--radius);
 }
 
 .book:first-child {
-    border-top-right-radius: var(--radius);
-    border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  border-top-left-radius: var(--radius);
 }
 
 .book:last-child .btn {
-    border-bottom-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .book:last-child {
-    border-bottom-right-radius: var(--radius);
-    border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
 }
